@@ -1,8 +1,8 @@
 {
   "name": "puffin.js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A new way to hover images",
-  "main": "dist/puffin.js",
+  "main": "dist/puffin.min.js",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
     "test": "mocha --require babel-register --reporter=nyan"
