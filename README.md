@@ -2,13 +2,8 @@
 
 `puffin.js` is a new way to bring hover on your images.
 
-- [Installation](#installation)
-  -- [NPM](#with-npm)
-  -- [Git](#with-git)
-- [Usage](#usage)
-  -- [Import](#import)
-  -- [Example](#example)
-  -- [Options](#options)
+- [Installation](#installation) - [NPM](#with-npm-recommended) - [Git](#with-git)
+- [Usage](#usage) - [Import](#import) - [Example](#example) - [Options](#options)
 
 ![Demonstration](https://i.imgur.com/JGAfbZG.gif)
 

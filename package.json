@@ -1,6 +1,6 @@
 {
   "name": "puffin.js",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A new way to hover images",
   "main": "dist/puffin.min.js",
   "scripts": {
