@@ -74,7 +74,7 @@ Inspired by Oxygenna (https://www.uplabs.com/posts/extreme-hover)
 |overlay `(string\|false)`|The text displayed on the overlay (any string or `false` to disable)|
 |duration `(float)`|The default animation duration (by default `0.4`)|
 |delay `(float)`|The default delay between the mouse entering the image and the animation (by default `0`)|
-|parts `Object[]`|The definitions of all the parts (rectangles)|
+|parts `(Object[])`|The definitions of all the parts (rectangles)|
 |x `(float)`|The position on the *x-axis* once hovered|
 |y `(float)`|The position on the *y-axis* once hovered|
 |height `(integer)`|The height of the part|
