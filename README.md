@@ -9,7 +9,7 @@
 	- [Example](#example)
 	- [Options](#options)
 
-![Demonstration](https://i.imgur.com/JGAfbZG.gif)
+![Demonstration](https://i.imgur.com/JRBt8Ky.gif)
 
 Inspired by Oxygenna (https://www.uplabs.com/posts/extreme-hover)
 

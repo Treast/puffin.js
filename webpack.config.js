@@ -29,6 +29,14 @@ const config = {
         loader: 'babel-loader',
         exclude: /(node_modules|bower_components)/,
       },
+      {
+        test: /\.scss$/,
+        use: [
+          "style-loader",
+          "css-loader",
+          "sass-loader"
+        ]
+      }
     ],
   },
   optimization,

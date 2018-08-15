@@ -1,11 +1,13 @@
 import * as _ from 'lodash';
 import { TweenMax } from 'gsap';
 import PuffinPart from './PuffinPart';
+import './Puttin.scss'
 
 export default class Puffin {
   constructor(options) {
     this.options = options;
     this.element = document.querySelector(options.selector);
+    this.element.classList.add('puffin')
     this.imageSrc = options.image;
     this.parts = [];
     this.buildParts();
@@ -28,7 +30,7 @@ export default class Puffin {
         part.duration || this.options.duration || 0.4,
       );
       div.setAttribute('data-delay', part.delay || this.options.delay || 0);
-      div.classList.add('hover__image--part');
+      div.classList.add('puffin--part');
       this.element.append(div);
     }
   }
@@ -37,7 +39,7 @@ export default class Puffin {
     if (this.options.overlay) {
       let overlayText = this.options.overlay;
       let overlay = document.createElement('div');
-      overlay.classList.add('hover__image--overlay');
+      overlay.classList.add('puffin--overlay');
       overlay.innerHTML = overlayText;
       this.element.prepend(overlay);
       this.overlay = overlay;
@@ -75,7 +77,7 @@ export default class Puffin {
   }
 
   setupParts() {
-    for (let part of this.element.querySelectorAll('.hover__image--part')) {
+    for (let part of this.element.querySelectorAll('.puffin--part')) {
       this.parts.push(new PuffinPart(part, this.imageSrc));
     }
   }

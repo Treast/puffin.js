@@ -1,0 +1,38 @@
+
+.puffin {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+    height: 400px;
+    width: 500px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    z-index: 0;
+    cursor: pointer;
+}
+
+.puffin--overlay {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    background-color: rgba(#000, 0.2);
+    z-index: 1;
+    color: white;
+    font-size: 26px;
+    opacity: 0;
+}
+
+.puffin--part {
+    position: absolute;
+    display: block;
+    background-color: transparent;
+    z-index: 2;
+}
