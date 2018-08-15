@@ -23,7 +23,7 @@
     "effect"
   ],
   "author": "Vincent Riva <vincent.riva@outlook.fr>",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Treast/puffin.js/issues"
   },
