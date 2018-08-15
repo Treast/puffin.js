@@ -9,7 +9,7 @@
 	- [Example](#example)
 	- [Options](#options)
 
-![Demonstration](https://i.imgur.com/JRBt8Ky.gif)
+![Demonstration](https://github.com/Treast/puffin.js/blob/master/example/demonstration.gif)
 
 Inspired by Oxygenna (https://www.uplabs.com/posts/extreme-hover)
 
