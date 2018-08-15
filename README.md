@@ -71,7 +71,7 @@ Inspired by Oxygenna (https://www.uplabs.com/posts/extreme-hover)
 |--|--|
 |selector `(string)`|Where to put the image *(ex: `#myDiv`, `.myOtherDiv` ..)*|
 |image `(string)`|The image to display|
-|overlay `(string|false)`|The text displayed on the overlay (any string or `false` to disable)|
+|overlay `(string\|false)`|The text displayed on the overlay (any string or `false` to disable)|
 |duration `(float)`|The default animation duration (by default `0.4`)|
 |delay `(float)`|The default delay between the mouse entering the image and the animation (by default `0`)|
 |parts `Object[]`|The definitions of all the parts (rectangles)|
