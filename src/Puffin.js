@@ -1,7 +1,7 @@
 import * as _ from 'lodash';
 import { TweenMax } from 'gsap';
 import PuffinPart from './PuffinPart';
-import './Puttin.scss'
+import './Puffin.scss'
 
 export default class Puffin {
   constructor(options) {

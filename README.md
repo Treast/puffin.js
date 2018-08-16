@@ -23,7 +23,7 @@ Inspired by Oxygenna (https://www.uplabs.com/posts/extreme-hover)
 
 # Usage
 ## Import
-`import Puffin from 'puffin.js`
+`import Puffin from 'puffin.js'`
 
 ## Example
 
