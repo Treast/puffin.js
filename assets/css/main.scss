@@ -1,9 +1,41 @@
 ---
 ---
 
-.side-nav .side-nav-inner .side-nav-logo > a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 64px;
+.side-nav {
+  .side-nav-inner .side-nav-logo > a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 64px;
+
+    h1.sm {
+      display: block;
+    }
+
+    h1.lg {
+      display: none;
+    }
+  }
+
+  &:hover .side-nav-inner .side-nav-logo > a {
+    h1.sm {
+      display: none;
+    }
+
+    h1.lg {
+      display: block;
+    }
+  }
+}
+
+.is-collapsed {
+  .side-nav .side-nav-inner .side-nav-logo > a {
+    h1.sm {
+      display: none;
+    }
+
+    h1.lg {
+      display: block;
+    }
+  }
 }
