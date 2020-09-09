@@ -1,0 +1,49 @@
+<div class="side-nav">
+  <div class="side-nav-inner">
+    <div class="side-nav-logo">
+      <a href="/">
+        <h1>puffin.js</h1>
+        <!-- <div class="logo logo-dark" style="background-image: url('/assets/images/logo/logo.png')"></div>
+        <div class="logo logo-white" style="background-image: url('/assets/images/logo/logo-white.png')"></div> -->
+      </a>
+      <div class="mobile-toggle side-nav-toggle">
+        <a href="">
+          <i class="ti-arrow-circle-left"></i>
+        </a>
+      </div>
+    </div>
+    <ul class="side-nav-menu scrollable mrg-top-30">
+      {% for link in site.data.navigation.links %} {% if link.children %}
+      <li class="nav-item dropdown">
+        <a class="dropdown-toggle" href="javascript:void(0);">
+          <span class="icon-holder">
+            <i class="{{ link.icon }}"></i>
+          </span>
+          <span class="title">{{ link.name }}</span>
+          <span class="arrow">
+            <i class="ti-angle-right"></i>
+          </span>
+        </a>
+        <ul class="dropdown-menu">
+          {% for child in link.children %}
+          <li class="nav-item dropdown">
+            <a href="{{ child.url }}">
+              <span>{{ child.name }}</span>
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </li>
+      {% else %}
+      <li class="nav-item dropdown">
+        <a class="" href="{{ link.url }}">
+          <span class="icon-holder">
+            <i class="{{ link.icon }}"></i>
+          </span>
+          <span class="title">{{ link.name }}</span>
+        </a>
+      </li>
+      {% endif %} {% endfor %}
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+links:
+  - name: Getting started
+    url: /getting-started/
+    icon: ti-home
+    children:
+      - name: Installation
+        url: /installation/
+        icon: ti-home
+      - name: Usage
+        url: /usage/
+        icon: ti-save
+  - name: Examples
+    url: /examples/
+    icon: ti-folder
+  - name: API Reference
+    url: /api/
+    icon: ti-world
+  - name: Events
+    url: /events/
+    icon: ti-bell
+  - name: Changelog
+    url: /changelog/
+    icon: ti-time
+  - name: Repository
+    url: https://github.com/Treast/puffin.js
+    icon: ti-new-window

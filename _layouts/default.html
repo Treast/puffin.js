@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jekyll | {{ page.title }}</title>
+
+    <link rel="stylesheet" href="/assets/vendors/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/assets/vendors/PACE/themes/blue/pace-theme-minimal.css" />
+    <link rel="stylesheet" href="/assets/vendors/perfect-scrollbar/css/perfect-scrollbar.min.css" />
+    <link rel="stylesheet" href="/assets/vendors/highlight.js/tomorrow.css" />
+
+    <link rel="stylesheet" href="/assets/css/ei-icon.css" />
+    <link rel="stylesheet" href="/assets/css/themify-icons.css" />
+    <link rel="stylesheet" href="/assets/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/assets/css/animate.min.css" />
+    <link rel="stylesheet" href="/assets/css/app.css" />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+  </head>
+  <body>
+    <div class="app">
+      <div class="layout">
+        {% include navigation.html %}
+        <div class="page-container">
+          <div class="header navbar">
+            <div class="header-container">
+              <ul class="nav-left">
+                <li>
+                  <a class="side-nav-toggle" href="javascript:void(0);">
+                    <i class="ti-align-left"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="main-content">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-block">{{ content }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {% include footer.html %}
+        </div>
+      </div>
+    </div>
+
+    <script src="/assets/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="/assets/vendors/popper.js/dist/umd/popper.min.js"></script>
+    <script src="/assets/vendors/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/assets/vendors/PACE/pace.min.js"></script>
+    <script src="/assets/vendors/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
+
+    <script src="/assets/js/app.js"></script>
+    <script>
+      window.onload = function () {
+        prettyPrint();
+      };
+    </script>
+  </body>
+</html>
