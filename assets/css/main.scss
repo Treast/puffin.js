@@ -9,16 +9,6 @@
     height: 64px;
 
     h1.sm {
-      display: block;
-    }
-
-    h1.lg {
-      display: none;
-    }
-  }
-
-  &:hover .side-nav-inner .side-nav-logo > a {
-    h1.sm {
       display: none;
     }
 
@@ -29,13 +19,77 @@
 }
 
 .is-collapsed {
-  .side-nav .side-nav-inner .side-nav-logo > a {
-    h1.sm {
-      display: none;
+  .side-nav {
+    .side-nav-inner .side-nav-logo > a {
+      h1.sm {
+        display: block;
+      }
+
+      h1.lg {
+        display: none;
+      }
     }
 
-    h1.lg {
-      display: block;
+    &:hover .side-nav-inner .side-nav-logo > a {
+      h1.sm {
+        display: none;
+      }
+
+      h1.lg {
+        display: block;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .side-nav {
+    .side-nav-inner .side-nav-logo > a {
+      h1.sm {
+        display: none !important;
+      }
+
+      h1.lg {
+        display: block !important;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1440px) and (min-width: 992px) {
+  .side-nav {
+    .side-nav-inner .side-nav-logo > a {
+      h1.sm {
+        display: block;
+      }
+
+      h1.lg {
+        display: none;
+      }
+    }
+
+    &:hover .side-nav-inner .side-nav-logo > a {
+      h1.sm {
+        display: none;
+      }
+
+      h1.lg {
+        display: block;
+      }
+    }
+  }
+
+  .is-collapsed {
+    .side-nav {
+      .side-nav-inner .side-nav-logo > a {
+        h1.sm {
+          display: none;
+        }
+
+        h1.lg {
+          display: block;
+        }
+      }
     }
   }
 }
