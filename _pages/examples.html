@@ -1,0 +1,110 @@
+---
+title: 'Examples'
+permalink: '/examples'
+layout: default
+---
+
+<h1>Examples</h1>
+
+<div class="puffin puffin-example" style="margin: 120px auto; width: 600px; height: 300px; max-width: 100%"></div>
+
+<div class="accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingOne">
+            <h4 class="panel-title">
+                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion-1" href="#collapseOne">
+                        <span>Code</span>
+                        <i class="icon ti-arrow-circle-down"></i> 
+                    </a>
+                </h4>
+        </div>
+
+        <div id="collapseOne" class="collapse panel-collapse">
+            <div class="panel-body">
+                {% highlight javascript %}
+new Puffin({
+    selector: '.puffin-example',
+    image: '/assets/images/Assassins.png',
+    duration: 0.4,
+    delay: 0,
+    overlay: "Demonstration puffin.js",
+    parts: [
+    {
+        x: -80,
+        y: -100,
+        height: 150,
+        width: 120,
+    },
+    {
+        x: -90,
+        y: 60,
+        height: 150,
+        width: 170,
+        delay: 0.1,
+        duration: 0.4,
+    },
+    {
+        x: 140,
+        y: 90,
+        height: 210,
+        width: 160,
+        delay: 0.2,
+        duration: 0.5,
+    },
+    {
+        x: 120,
+        y: -60,
+        height: 160,
+        width: 150,
+        delay: 0.3,
+        duration: 0.6,
+    },
+    ],
+})
+                {% endhighlight %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+new Puffin({
+    selector: '.puffin-example',
+    image: '/assets/images/Assassins.png',
+    duration: 0.4,
+    delay: 0,
+    overlay: "Demonstration puffin.js",
+    parts: [
+      {
+        x: -80,
+        y: -100,
+        height: 150,
+        width: 120,
+      },
+      {
+        x: -90,
+        y: 60,
+        height: 150,
+        width: 170,
+        delay: 0.1,
+        duration: 0.4,
+      },
+      {
+        x: 140,
+        y: 90,
+        height: 210,
+        width: 160,
+        delay: 0.2,
+        duration: 0.5,
+      },
+      {
+        x: 120,
+        y: -60,
+        height: 160,
+        width: 150,
+        delay: 0.3,
+        duration: 0.6,
+      },
+    ],
+})
+</script>
