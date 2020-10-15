@@ -28,7 +28,7 @@
         <ul class="dropdown-menu">
           {% for child in link.children %}
           <li class="nav-item dropdown">
-            <a href="{{ child.url }}">
+            <a href="{{ child.url | relative_url }}">
               <span>{{ child.name }}</span>
             </a>
           </li>
@@ -37,7 +37,7 @@
       </li>
       {% else %}
       <li class="nav-item dropdown">
-        <a class="" href="{{ link.url }}">
+        <a class="" href="{{ link.url | relative_url }}">
           <span class="icon-holder">
             <i class="{{ link.icon }}"></i>
           </span>
