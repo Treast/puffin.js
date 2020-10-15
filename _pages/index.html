@@ -1,25 +1,29 @@
 ---
 title: 'Documentation'
-permalink: '/'
+permalink: '{{ site.base-url }}/'
 layout: default
 ---
 
 <h1>puffin.js</h1>
 
 <p><b>puffin.js</b> is a Javascript library that brings a new way to hover images.</p>
-<p>This project was inspired by the animation of Oxygenna (<a href="https://www.uplabs.com/posts/extreme-hover" target="_blank">https://www.uplabs.com/posts/extreme-hover</a>).</p>
+<p>
+  This project was inspired by the animation of Oxygenna (<a href="https://www.uplabs.com/posts/extreme-hover" target="_blank"
+    >https://www.uplabs.com/posts/extreme-hover</a
+  >).
+</p>
 
 <h3>Preview</h3>
 
 <div class="puffin puffin-example" style="margin: 120px auto; width: 600px; height: 300px; max-width: 100%"></div>
 
 <script type="text/javascript">
-new Puffin({
+  new Puffin({
     selector: '.puffin-example',
     image: './assets/images/Assassins.png',
     duration: 0.4,
     delay: 0,
-    overlay: "Demonstration puffin.js",
+    overlay: 'Demonstration puffin.js',
     parts: [
       {
         x: -80,
@@ -52,5 +56,5 @@ new Puffin({
         duration: 0.6,
       },
     ],
-})
+  });
 </script>
