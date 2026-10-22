@@ -1,53 +1,53 @@
 {
-  "name": "puffin.js",
-  "version": "2.0.0",
-  "description": "A lightweight, zero-dependency library to create interactive parallax image hover effects",
-  "type": "module",
-  "main": "dist/puffin.min.js",
-  "module": "dist/puffin.esm.js",
-  "exports": {
-    ".": {
-      "import": "./dist/puffin.esm.js",
-      "require": "./dist/puffin.min.js",
-      "default": "./dist/puffin.esm.js"
-    },
-    "./css": "./dist/puffin.min.css"
-  },
-  "files": [
-    "dist",
-    "src"
-  ],
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "pretest": "npm run build",
-    "test": "node --test test/*.spec.js",
-    "format": "biome format --write .",
-    "format:check": "biome format .",
-    "lint": "biome lint ."
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Treast/puffin.js.git"
-  },
-  "keywords": [
-    "hover",
-    "images",
-    "puffin.js",
-    "puffin",
-    "effect",
-    "image",
-    "parallax",
-    "animation"
-  ],
-  "author": "Vincent Riva <vincent.riva@outlook.fr>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Treast/puffin.js/issues"
-  },
-  "homepage": "https://treast.github.io/puffin.js/",
-  "devDependencies": {
-    "@biomejs/biome": "^2.6.2",
-    "vite": "^8.3.5"
-  }
+	"name": "puffin.js",
+	"version": "2.0.0",
+	"description": "A lightweight, zero-dependency library to create interactive parallax image hover effects",
+	"type": "module",
+	"main": "dist/puffin.min.js",
+	"module": "dist/puffin.esm.js",
+	"exports": {
+		".": {
+			"import": "./dist/puffin.esm.js",
+			"require": "./dist/puffin.min.js",
+			"default": "./dist/puffin.esm.js"
+		},
+		"./css": "./dist/puffin.min.css"
+	},
+	"files": [
+		"dist",
+		"src"
+	],
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"pretest": "npm run build",
+		"test": "node --test test/*.spec.js",
+		"format": "biome format --write .",
+		"format:check": "biome format .",
+		"lint": "biome lint ."
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Treast/puffin.js.git"
+	},
+	"keywords": [
+		"hover",
+		"images",
+		"puffin.js",
+		"puffin",
+		"effect",
+		"image",
+		"parallax",
+		"animation"
+	],
+	"author": "Vincent Riva <vincent.riva@outlook.fr>",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/Treast/puffin.js/issues"
+	},
+	"homepage": "https://treast.github.io/puffin.js/",
+	"devDependencies": {
+		"@biomejs/biome": "^2.6.2",
+		"vite": "^8.3.5"
+	}
 }
