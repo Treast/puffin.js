@@ -6,4 +6,54 @@ layout: default
 
 <h1>Events</h1>
 
-<p>Events are coming in next versions.</p>
+<p>The container element dispatches custom events that you can listen to:</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Event Name</th>
+      <th>Triggered When</th>
+      <th>Event Detail</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>puffin:enter</code></td>
+      <td>Pointer enters the image container.</td>
+      <td><code>e.detail.puffin</code> (the Puffin instance)</td>
+    </tr>
+    <tr>
+      <td><code>puffin:leave</code></td>
+      <td>Pointer leaves the image container.</td>
+      <td><code>e.detail.puffin</code> (the Puffin instance)</td>
+    </tr>
+    <tr>
+      <td><code>puffin:click</code></td>
+      <td>The image container is clicked.</td>
+      <td><code>e.detail.puffin</code>, <code>e.detail.originalEvent</code></td>
+    </tr>
+    <tr>
+      <td><code>customEvent</code></td>
+      <td>Dispatched alongside any event above for backward compatibility.</td>
+      <td>None</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Example</h3>
+
+{% highlight javascript %}
+const container = document.querySelector('.puffin-container');
+
+container.addEventListener('puffin:enter', (event) => {
+  console.log('Hovered!', event.detail.puffin);
+});
+
+container.addEventListener('puffin:leave', (event) => {
+  console.log('Mouse left the container');
+});
+
+container.addEventListener('puffin:click', (event) => {
+  console.log('Clicked!', event.detail.originalEvent);
+});
+{% endhighlight %}

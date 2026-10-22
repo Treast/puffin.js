@@ -6,17 +6,25 @@ layout: default
 
 <h1>Installation</h1>
 
-<p>You can install <b>puffin.js</b> in two ways:</p>
+<p>You can install <b>puffin.js</b> in three ways:</p>
 
-<h3>With NPM</h3>
+<h3>With NPM (recommended)</h3>
 
 {% highlight terminal %}
 npm install puffin.js --save
+{% endhighlight %}
+
+<h3>With direct Script tag</h3>
+
+{% highlight html %}
+<script src="dist/puffin.min.js"></script>
 {% endhighlight %}
 
 <h3>With Git</h3>
 
 {% highlight terminal %}
 git clone https://github.com/Treast/puffin.js.git
-mv ./puffin.js/dist/puffin.min.js ./my-project
+cd puffin.js
+npm install
+npm run build
 {% endhighlight %}

@@ -8,28 +8,29 @@ layout: default
 
 <h3>Import</h3>
 
-<p>You can import it with ES6 syntax:</p>
+<p>You can import puffin.js using ES6 modules (Vite, Webpack, Rollup):</p>
 
 {% highlight javascript %}
-import Puffin from 'puffin.js'
+import Puffin from 'puffin.js';
 {% endhighlight %}
 
-<p>Or you can import directly the file:</p>
+<p>Or load it directly in HTML via script tag:</p>
 
 {% highlight html %}
-<script src="puffin.min.js" type="text/javascript">
+<script src="puffin.min.js" type="text/javascript"></script>
 {% endhighlight %}
 
 <h3>How to use ?</h3>
 
-<p>A basic usage will look like this:</p>
+<p>A basic usage looks like this:</p>
 
 {% highlight javascript %}
-new Puffin({
+const puffin = new Puffin({
     selector: '.puffin-container',
     image: './assets/images/puffin.png',
     duration: 0.4,
     delay: 0,
+    easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
     overlay: "Demonstration puffin.js",
     parts: [
       {
@@ -63,11 +64,18 @@ new Puffin({
         duration: 0.6,
       },
     ],
-})
+});
 {% endhighlight %}
 
-<h3>Explanations</h3>
+<h3>Cleanup / Destroy</h3>
 
+<p>When unmounting a component or navigating dynamically in a Single Page App (SPA):</p>
+
+{% highlight javascript %}
+puffin.destroy();
+{% endhighlight %}
+
+<h3>Options</h3>
 
 <h4>Puffin</h4>
 
@@ -83,41 +91,49 @@ new Puffin({
         <tr>
             <td>selector</td>
             <td>string</td>
-            <td>Container where to put the image</td>
+            <td><b>Optional.</b> Container selector (e.g. <code>.my-class</code>)</td>
+        </tr>
+        <tr>
+            <td>element</td>
+            <td>HTMLElement</td>
+            <td><b>Optional.</b> Container DOM element directly</td>
         </tr>
         <tr>
             <td>image</td>
             <td>string</td>
-            <td>URI of the image</td>
+            <td>URI or path of the image</td>
         </tr>
         <tr>
             <td>overlay</td>
             <td>string|false</td>
-            <td><b>Optional.</b> Text to be display on an overlay. Default is disabled</td>
+            <td><b>Optional.</b> HTML/text displayed on hover overlay. Default is disabled</td>
         </tr>
         <tr>
             <td>duration</td>
             <td>number</td>
-            <td><b>Optional.</b> Duration by default for all <em>parts</em>. Default is 0.4</td>
+            <td><b>Optional.</b> Default duration for all slices. Default is <code>0.4</code></td>
         </tr>
         <tr>
             <td>delay</td>
             <td>number</td>
-            <td><b>Optional.</b> Delay by default for all <em>parts</em>. Default is 0</td>
+            <td><b>Optional.</b> Default enter delay for all slices. Default is <code>0</code></td>
+        </tr>
+        <tr>
+            <td>easing</td>
+            <td>string</td>
+            <td><b>Optional.</b> CSS transition timing function. Default is <code>'cubic-bezier(0.25, 1, 0.5, 1)'</code></td>
         </tr>
         <tr>
             <td>parts</td>
             <td>PuffinPart[]</td>
-            <td><em>Parts</em>. See below for more informations.</td>
+            <td>Slice definitions. See below.</td>
         </tr>
     </tbody>
 </table>
 
 <h4>PuffinParts</h4>
 
-<p>As you can see, you must specify <em>parts</em>. Those parts represent the square moving out when you mouseover.</p>
-
-<p>You can define some properties :</p>
+<p>Each slice represents an image fragment that dislocates upon hover with parallax:</p>
 
 <table class="table">
     <thead>
@@ -131,32 +147,37 @@ new Puffin({
         <tr>
             <td>x</td>
             <td>number</td>
-            <td>Amount of horizontal pixels the part will move. If <em>x</em> is positive, the <em>part</em> will be on the right of the image, otherwise on the left.</td>
+            <td>Horizontal offset upon hover (negative = left, positive = right).</td>
         </tr>
         <tr>
             <td>y</td>
             <td>number</td>
-            <td>Amount of vertical pixels the part will move. If <em>y</em> is positive, the <em>part</em> will be on the bottom of the image, otherwise on the top.</td>
+            <td>Vertical offset upon hover (negative = up, positive = down).</td>
         </tr>
         <tr>
             <td>height</td>
             <td>number</td>
-            <td>Height of the <em>part</em>.</td>
+            <td>Height of the slice in pixels.</td>
         </tr>
         <tr>
             <td>width</td>
             <td>number</td>
-            <td>Width of the <em>part</em>.</td>
+            <td>Width of the slice in pixels.</td>
         </tr>
         <tr>
             <td>delay</td>
             <td>number</td>
-            <td><b>Optional.</b> Delay before the movement of the <em>part</em>. Default is 0</td>
+            <td><b>Optional.</b> Delay override before moving this slice.</td>
         </tr>
         <tr>
             <td>duration</td>
             <td>number</td>
-            <td><b>Optional.</b> Duration of the <em>part</em> movement. Default is 0.4</td>
+            <td><b>Optional.</b> Duration override for this slice.</td>
+        </tr>
+        <tr>
+            <td>easing</td>
+            <td>string</td>
+            <td><b>Optional.</b> Easing override for this slice.</td>
         </tr>
     </tbody>
 </table>

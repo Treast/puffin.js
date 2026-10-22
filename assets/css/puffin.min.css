@@ -1,0 +1,2 @@
+.puffin{z-index:0;cursor:pointer;background-color:#0000;background-repeat:no-repeat;width:500px;height:400px;display:block;position:absolute;top:50%;left:50%;overflow:visible;transform:translate(-50%,-50%)}.puffin--overlay{text-align:center;z-index:1;color:#fff;opacity:0;pointer-events:none;background-color:#0003;justify-content:center;align-items:center;font-size:26px;display:flex;position:absolute;inset:0}.puffin--part{z-index:2;pointer-events:none;will-change:transform, background-position;background-color:#0000;display:block;position:absolute}
+/*$vite$:1*/

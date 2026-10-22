@@ -6,18 +6,22 @@ layout: default
 
 <h1>Changelog</h1>
 
-<h3>In next version</h3>
+<h3>2.0.0</h3>
 
 <ul>
-  <li>Events</li>
-  <li>Refactor</li>
-  <li>Switch from Webpack to Rollup</li>
-  <li>Typescript support</li>
+  <li><b>Zero Runtime Dependencies</b>: Removed Lodash and GSAP dependencies in favor of native ES6+ and hardware-accelerated CSS transitions.</li>
+  <li><b>Vite 8</b>: Switched build system to modern Vite 8 with ESM, UMD, and CSS asset outputs.</li>
+  <li><b>BiomeJS</b>: Added Biome for lightning-fast formatting and linting.</li>
+  <li><b>Custom Events</b>: Added <code>puffin:enter</code>, <code>puffin:leave</code>, and <code>puffin:click</code> events.</li>
+  <li><b>Lifecycle Support</b>: Added <code>destroy()</code> method to clean up listeners and DOM elements.</li>
+  <li><b>Bug Fixes</b>: Fixed string sorting issue in <code>getMinimumPart</code>/<code>getMaximumPart</code>, eliminated flickering on hover by switching to <code>mouseenter</code>, and cleaned up uninitialized style properties.</li>
+  <li><b>Size Optimization</b>: Reduced bundle size from 130+ KB to ~6 KB (~2 KB gzipped).</li>
 </ul>
 
-<h3>Previous versions</h3>
+<h3>1.1.0</h3>
+<p>Modernized tooling and dependencies.</p>
 
-<h4>1.0.1, 1.0.2, 1.0.3, 1.0.4, 1.0.5, 1.0.6</h4>
+<h3>1.0.1, 1.0.2, 1.0.3, 1.0.4, 1.0.5, 1.0.6</h3>
 <p>Improve documentation</p>
 
 <h4>1.0.0</h4>

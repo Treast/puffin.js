@@ -6,7 +6,7 @@ layout: default
 
 <h1>API</h1>
 
-<h3>Puffin</h3>
+<h3>Puffin Options</h3>
 
 <table class="table">
   <thead>
@@ -20,7 +20,12 @@ layout: default
     <tr>
       <td>selector</td>
       <td>string</td>
-      <td>Container where to put the image</td>
+      <td><b>Optional.</b> CSS selector of the container (e.g. <code>#myContainer</code>)</td>
+    </tr>
+    <tr>
+      <td>element</td>
+      <td>HTMLElement</td>
+      <td><b>Optional.</b> Direct DOM element reference (alternative to <code>selector</code>)</td>
     </tr>
     <tr>
       <td>image</td>
@@ -30,22 +35,44 @@ layout: default
     <tr>
       <td>overlay</td>
       <td>string|false</td>
-      <td><b>Optional.</b> Text to be display on an overlay. Default is disabled</td>
+      <td><b>Optional.</b> HTML or text displayed in the overlay upon hover. Default is disabled</td>
     </tr>
     <tr>
       <td>duration</td>
       <td>number</td>
-      <td><b>Optional.</b> Duration by default for all <em>parts</em>. Default is 0.4</td>
+      <td><b>Optional.</b> Default transition duration in seconds. Default is <code>0.4</code></td>
     </tr>
     <tr>
       <td>delay</td>
       <td>number</td>
-      <td><b>Optional.</b> Delay by default for all <em>parts</em>. Default is 0</td>
+      <td><b>Optional.</b> Default enter delay in seconds. Default is <code>0</code></td>
+    </tr>
+    <tr>
+      <td>easing</td>
+      <td>string</td>
+      <td><b>Optional.</b> CSS transition timing function. Default is <code>'cubic-bezier(0.25, 1, 0.5, 1)'</code></td>
     </tr>
     <tr>
       <td>parts</td>
       <td>PuffinPart[]</td>
-      <td><em>Parts</em>. See below for more informations.</td>
+      <td>Array of slice configurations. See below for more information.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Puffin Methods</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>destroy()</code></td>
+      <td>Removes event listeners, removes generated slices/overlay from DOM, and resets container styles.</td>
     </tr>
   </tbody>
 </table>
@@ -65,37 +92,40 @@ layout: default
       <td>x</td>
       <td>number</td>
       <td>
-        Amount of horizontal pixels the part will move. If <em>x</em> is positive, the <em>part</em> will be on the right of the image, otherwise on
-        the left.
+        Target horizontal pixel offset upon hover. If negative, the slice moves left; if positive, it moves right.
       </td>
     </tr>
     <tr>
       <td>y</td>
       <td>number</td>
       <td>
-        Amount of vertical pixels the part will move. If <em>y</em> is positive, the <em>part</em> will be on the bottom of the image, otherwise on
-        the top.
+        Target vertical pixel offset upon hover. If negative, the slice moves up; if positive, it moves down.
       </td>
     </tr>
     <tr>
       <td>height</td>
       <td>number</td>
-      <td>Height of the <em>part</em>.</td>
+      <td>Height of the slice in pixels.</td>
     </tr>
     <tr>
       <td>width</td>
       <td>number</td>
-      <td>Width of the <em>part</em>.</td>
+      <td>Width of the slice in pixels.</td>
     </tr>
     <tr>
       <td>delay</td>
       <td>number</td>
-      <td><b>Optional.</b> Delay before the movement of the <em>part</em>. Default is 0</td>
+      <td><b>Optional.</b> Delay override before moving this slice. Default is the parent's delay.</td>
     </tr>
     <tr>
       <td>duration</td>
       <td>number</td>
-      <td><b>Optional.</b> Duration of the <em>part</em> movement. Default is 0.4</td>
+      <td><b>Optional.</b> Duration override for this slice. Default is the parent's duration.</td>
+    </tr>
+    <tr>
+      <td>easing</td>
+      <td>string</td>
+      <td><b>Optional.</b> Easing override for this slice. Default is the parent's easing.</td>
     </tr>
   </tbody>
 </table>
