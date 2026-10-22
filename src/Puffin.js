@@ -1,132 +1,246 @@
-import * as _ from 'lodash';
-import { TweenMax } from 'gsap';
-import PuffinPart from './PuffinPart';
-import './Puffin.scss';
+import PuffinPart from "./PuffinPart.js";
+import "./puffin.css";
+
+const DEFAULT_CSS = `
+.puffin {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: block;
+  height: 400px;
+  width: 500px;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  z-index: 0;
+  cursor: pointer;
+  overflow: visible;
+}
+.puffin--overlay {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  color: #ffffff;
+  font-size: 26px;
+  opacity: 0;
+  pointer-events: none;
+}
+.puffin--part {
+  position: absolute;
+  display: block;
+  background-color: transparent;
+  z-index: 2;
+  pointer-events: none;
+  will-change: transform, background-position;
+}
+`;
+
+function injectStylesIfNeeded() {
+	if (
+		typeof document === "undefined" ||
+		document.getElementById("puffin-default-style")
+	) {
+		return;
+	}
+	const style = document.createElement("style");
+	style.id = "puffin-default-style";
+	style.textContent = DEFAULT_CSS;
+	document.head.appendChild(style);
+}
 
 class Puffin {
-  constructor(options) {
-    this.options = options;
-    this.element = document.querySelector(options.selector);
-    this.element.classList.add('puffin');
-    this.imageSrc = options.image;
-    this.parts = [];
-    this.buildParts();
-    this.setupHtml();
-    this.setupHover();
-    this.setupOverlay();
-    this.setupListeners();
-  }
+	constructor(options = {}) {
+		this.options = {
+			duration: 0.4,
+			delay: 0,
+			easing: "cubic-bezier(0.25, 1, 0.5, 1)",
+			parts: [],
+			...options,
+		};
 
-  buildParts() {
-    this.options.parts.forEach((part) => {
-      let div = document.createElement('div');
-      div.setAttribute('data-x', part.x);
-      div.setAttribute('data-y', part.y);
-      div.setAttribute('data-height', part.height);
-      div.setAttribute('data-width', part.width);
-      div.setAttribute('data-duration', part.duration || this.options.duration || 0.4);
-      div.setAttribute('data-delay', part.delay || this.options.delay || 0);
-      div.classList.add('puffin--part');
-      this.element.append(div);
-      this.parts.push(new PuffinPart(div, this.imageSrc));
-    });
-  }
+		const target =
+			options.element ||
+			(options.selector && typeof options.selector === "string"
+				? document.querySelector(options.selector)
+				: null);
 
-  setupOverlay() {
-    if (this.options.overlay) {
-      let overlayText = this.options.overlay;
-      let overlay = document.createElement('div');
-      overlay.classList.add('puffin--overlay');
-      overlay.innerHTML = overlayText;
-      this.element.prepend(overlay);
-      this.overlay = overlay;
-    } else {
-      this.overlay = null;
-    }
-  }
+		if (!target) {
+			console.error(
+				`[puffin.js] Target element not found for selector: "${options.selector}"`,
+			);
+			return;
+		}
 
-  setupListeners() {
-    this.element.addEventListener('mouseover', (e) => {
-      this.parts.forEach((part) => {
-        part.animateIn();
-      });
-      if (this.overlay) {
-        TweenMax.to(this.overlay, 0.4, {
-          alpha: 1,
-        });
-      }
-      this.element.dispatchEvent(new Event('customEvent'));
-    });
-    this.element.addEventListener('mouseleave', (e) => {
-      this.parts.forEach((part) => {
-        part.animateOut();
-      });
-      if (this.overlay) {
-        TweenMax.to(this.overlay, 0.4, {
-          alpha: 0,
-        });
-      }
-      this.element.dispatchEvent(new Event('customEvent'));
-    });
-    this.element.addEventListener('click', () => {
-      this.element.dispatchEvent(new Event('customEvent'));
-    });
-  }
+		injectStylesIfNeeded();
 
-  setupHtml() {
-    let minX = this.getMinimumPart('data-x');
-    let minY = this.getMinimumPart('data-y');
+		this.element = target;
+		this.element.classList.add("puffin");
+		this.imageSrc = options.image || "";
+		this.parts = [];
 
-    this.parts.forEach((part) => {
-      part.setSize();
-      part.move(minX, minY, this.element.getBoundingClientRect().width, this.element.getBoundingClientRect().height);
-    });
-  }
+		this.buildParts();
+		this.setupOverlay();
+		this.setupLayout();
+		this.setupListeners();
+	}
 
-  setupHover() {
-    let minX = this.getMinimumPart('data-x');
-    let maxX = this.getMaximumPart('data-x');
-    let minY = this.getMinimumPart('data-y');
-    let maxY = this.getMaximumPart('data-y');
-    let maxImageX = this.element.getBoundingClientRect().width + Math.abs(minX) + Math.abs(maxX);
-    let maxImageY = this.element.getBoundingClientRect().height + Math.abs(minY) + Math.abs(maxY);
-    let centerImage = {
-      x: maxImageX / 2,
-      y: maxImageY / 2,
-    };
-    let positionImage = {
-      x: (centerImage.x + Math.abs(minX)) * -1,
-      y: (centerImage.y + Math.abs(minY)) * -1,
-    };
+	buildParts() {
+		const defaultDuration = this.options.duration;
+		const defaultDelay = this.options.delay;
+		const defaultEasing = this.options.easing;
 
-    this.element.style.backgroundPosition = Math.floor(minX) + 'px ' + Math.floor(minY) + 'px';
-    this.element.style.backgroundSize = maxImageX + 'px ' + maxImageY + 'px';
-    this.element.style.backgroundImage = 'url(' + this.imageSrc + ')';
-    this.parts.forEach((part) => {
-      part.setBackground(
-        Math.floor(minX),
-        Math.floor(minY),
-        maxImageX,
-        maxImageY,
-        this.element.getBoundingClientRect().width,
-        this.element.getBoundingClientRect().height
-      );
-    });
-  }
+		(this.options.parts || []).forEach((partConfig) => {
+			const part = new PuffinPart({
+				...partConfig,
+				duration:
+					partConfig.duration !== undefined
+						? partConfig.duration
+						: defaultDuration,
+				delay: partConfig.delay !== undefined ? partConfig.delay : defaultDelay,
+				easing: partConfig.easing || defaultEasing,
+				imageSrc: this.imageSrc,
+			});
 
-  getMinimumPart(attribute) {
-    let minimum = _.minBy(this.parts, (part) => {
-      return part.element.getAttribute(attribute);
-    }).element.getAttribute(attribute);
-    return parseFloat(minimum);
-  }
+			this.element.appendChild(part.element);
+			this.parts.push(part);
+		});
+	}
 
-  getMaximumPart(attribute) {
-    let maximum = _.maxBy(this.parts, (part) => {
-      return part.element.getAttribute(attribute);
-    }).element.getAttribute(attribute);
-    return parseFloat(maximum);
-  }
+	setupOverlay() {
+		if (this.options.overlay) {
+			const overlay = document.createElement("div");
+			overlay.classList.add("puffin--overlay");
+			overlay.innerHTML = this.options.overlay;
+			this.element.prepend(overlay);
+			this.overlay = overlay;
+		} else {
+			this.overlay = null;
+		}
+	}
+
+	setupLayout() {
+		const minX = this.getMinimumPart("x");
+		const maxX = this.getMaximumPart("x");
+		const minY = this.getMinimumPart("y");
+		const maxY = this.getMaximumPart("y");
+
+		const rect = this.element.getBoundingClientRect();
+		const width = rect.width || this.element.offsetWidth || 500;
+		const height = rect.height || this.element.offsetHeight || 400;
+
+		const maxImageX = width + Math.abs(minX) + Math.abs(maxX);
+		const maxImageY = height + Math.abs(minY) + Math.abs(maxY);
+
+		this.element.style.backgroundPosition = `${Math.floor(minX)}px ${Math.floor(minY)}px`;
+		this.element.style.backgroundSize = `${maxImageX}px ${maxImageY}px`;
+		this.element.style.backgroundImage = `url("${this.imageSrc}")`;
+
+		this.parts.forEach((part) => {
+			part.setup(
+				Math.floor(minX),
+				Math.floor(minY),
+				maxImageX,
+				maxImageY,
+				width,
+				height,
+			);
+		});
+	}
+
+	setupListeners() {
+		this._onMouseEnter = () => {
+			this.parts.forEach((part) => {
+				part.animateIn();
+			});
+			if (this.overlay) {
+				this.overlay.style.transition = `opacity ${this.options.duration}s ${this.options.easing}`;
+				this.overlay.style.opacity = "1";
+			}
+			this.emit("puffin:enter");
+		};
+
+		this._onMouseLeave = () => {
+			this.parts.forEach((part) => {
+				part.animateOut();
+			});
+			if (this.overlay) {
+				this.overlay.style.transition = `opacity ${this.options.duration}s ${this.options.easing}`;
+				this.overlay.style.opacity = "0";
+			}
+			this.emit("puffin:leave");
+		};
+
+		this._onClick = (e) => {
+			this.emit("puffin:click", { originalEvent: e });
+		};
+
+		this.element.addEventListener("mouseenter", this._onMouseEnter);
+		this.element.addEventListener("mouseleave", this._onMouseLeave);
+		this.element.addEventListener("click", this._onClick);
+	}
+
+	emit(name, detail = {}) {
+		if (!this.element) return;
+		this.element.dispatchEvent(
+			new CustomEvent(name, { detail: { puffin: this, ...detail } }),
+		);
+		this.element.dispatchEvent(new Event("customEvent"));
+	}
+
+	getMinimumPart(attribute) {
+		if (!this.parts.length) return 0;
+		const values = this.parts.map((p) => {
+			if (attribute === "data-x" || attribute === "x") return p.x;
+			if (attribute === "data-y" || attribute === "y") return p.y;
+			return 0;
+		});
+		return Math.min(...values);
+	}
+
+	getMaximumPart(attribute) {
+		if (!this.parts.length) return 0;
+		const values = this.parts.map((p) => {
+			if (attribute === "data-x" || attribute === "x") return p.x;
+			if (attribute === "data-y" || attribute === "y") return p.y;
+			return 0;
+		});
+		return Math.max(...values);
+	}
+
+	destroy() {
+		if (!this.element) return;
+
+		this.element.removeEventListener("mouseenter", this._onMouseEnter);
+		this.element.removeEventListener("mouseleave", this._onMouseLeave);
+		this.element.removeEventListener("click", this._onClick);
+
+		this.parts.forEach((part) => {
+			part.destroy();
+		});
+		this.parts = [];
+
+		if (this.overlay?.parentNode) {
+			this.overlay.parentNode.removeChild(this.overlay);
+			this.overlay = null;
+		}
+
+		this.element.classList.remove("puffin");
+		this.element.style.backgroundPosition = "";
+		this.element.style.backgroundSize = "";
+		this.element.style.backgroundImage = "";
+	}
 }
-window.Puffin = Puffin;
+
+if (typeof window !== "undefined") {
+	window.Puffin = Puffin;
+}
+
 export default Puffin;

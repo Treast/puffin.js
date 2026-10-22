@@ -1,108 +1,98 @@
 export default class PuffinPart {
-  constructor(element, imageSrc) {
-    this.element = element;
-    this.imageSrc = imageSrc;
-    this.deltaX = parseFloat(this.element.getAttribute('data-x'));
-    this.deltaY = parseFloat(this.element.getAttribute('data-y'));
-    this.configuration = {
-      delay: this.element.getAttribute('data-delay') || 0,
-      duration: this.element.getAttribute('data-duration') || 0.4,
-    };
-    this.setBackground();
-  }
+	constructor(options = {}) {
+		this.x = Number(options.x) || 0;
+		this.y = Number(options.y) || 0;
+		this.width = Number(options.width) || 0;
+		this.height = Number(options.height) || 0;
+		this.duration =
+			options.duration !== undefined ? Number(options.duration) : 0.4;
+		this.delay = options.delay !== undefined ? Number(options.delay) : 0;
+		this.easing = options.easing || "cubic-bezier(0.25, 1, 0.5, 1)";
+		this.imageSrc = options.imageSrc || "";
 
-  setSize() {
-    let height = this.element.getAttribute('data-height');
-    let width = this.element.getAttribute('data-width');
+		this.element = document.createElement("div");
+		this.element.classList.add("puffin--part");
+		this.element.style.width = `${this.width}px`;
+		this.element.style.height = `${this.height}px`;
 
-    this.element.style.height = height + 'px';
-    this.element.style.width = width + 'px';
-  }
+		this.positions = {
+			initial: { x: 0, y: 0, bgX: 0, bgY: 0 },
+			hover: { x: 0, y: 0, bgX: 0, bgY: 0 },
+		};
+	}
 
-  move(minX, minY, imageWidth, imageHeight) {
-    if (this.deltaX < 0) {
-      this.configuration.leftHover = this.deltaX + 'px';
-      this.configuration.left = 0;
-      this.configuration.backgroundLeft = minX;
-    } else {
-      this.configuration.leftHover =
-        imageWidth -
-        (this.element.getBoundingClientRect().width - this.deltaX) +
-        'px';
-      this.configuration.left =
-        imageWidth - this.element.getBoundingClientRect().width + 'px';
-      this.configuration.backgroundLeft =
-        minX - imageWidth + this.element.getBoundingClientRect().width;
-      //this.element.getBoundingClientRect().width + this.deltaX;
-    }
+	setup(minX, minY, maxImageX, maxImageY, containerWidth, containerHeight) {
+		let left;
+		let leftHover;
+		let bgLeft;
+		let bgHoverX;
 
-    if (this.deltaY < 0) {
-      this.configuration.topHover = this.deltaY + 'px';
-      this.configuration.top = 0;
-      this.configuration.backgroundTop = minY;
-    } else {
-      this.configuration.topHover =
-        imageHeight -
-        (this.element.getBoundingClientRect().height - this.deltaY) +
-        'px';
-      this.configuration.top =
-        imageHeight - this.element.getBoundingClientRect().height + 'px';
-      this.configuration.backgroundTop =
-        minY - imageHeight + this.element.getBoundingClientRect().height;
-      //this.element.getBoundingClientRect().height + this.deltaY;
-    }
+		let top;
+		let topHover;
+		let bgTop;
+		let bgHoverY;
 
-    TweenMax.set(this.element, {
-      x: this.configuration.left,
-      y: this.configuration.top,
-      backgroundPosition:
-        this.configuration.backgroundLeft +
-        'px ' +
-        this.configuration.backgroundTop +
-        'px',
-    });
-  }
+		if (this.x < 0) {
+			left = 0;
+			leftHover = this.x;
+			bgLeft = minX;
+			bgHoverX = minX - this.x;
+		} else {
+			left = containerWidth - this.width;
+			leftHover = containerWidth - this.width + this.x;
+			bgLeft = minX - containerWidth + this.width;
+			bgHoverX = bgLeft - this.x;
+		}
 
-  animateIn() {
-    TweenMax.to(this.element, this.configuration.duration, {
-      x: this.configuration.leftHover,
-      y: this.configuration.topHover,
-      backgroundPosition: this.configuration.backgroundPosition,
-      delay: this.configuration.delay,
-    });
-  }
+		if (this.y < 0) {
+			top = 0;
+			topHover = this.y;
+			bgTop = minY;
+			bgHoverY = minY - this.y;
+		} else {
+			top = containerHeight - this.height;
+			topHover = containerHeight - this.height + this.y;
+			bgTop = minY - containerHeight + this.height;
+			bgHoverY = bgTop - this.y;
+		}
 
-  animateOut() {
-    TweenMax.to(this.element, this.configuration.duration, {
-      x: this.configuration.left,
-      y: this.configuration.top,
-      backgroundPosition:
-        this.configuration.backgroundLeft +
-        'px ' +
-        this.configuration.backgroundTop +
-        'px',
-      delay: this.configuration.delay,
-    });
-  }
+		this.positions.initial = { x: left, y: top, bgX: bgLeft, bgY: bgTop };
+		this.positions.hover = {
+			x: leftHover,
+			y: topHover,
+			bgX: bgHoverX,
+			bgY: bgHoverY,
+		};
 
-  setBackground(minX, minY, maxImageX, maxImageY, imageWidth, imageHeight) {
-    let x = 0;
-    let y = minY - this.deltaY;
+		this.element.style.backgroundImage = `url("${this.imageSrc}")`;
+		this.element.style.backgroundSize = `${maxImageX}px ${maxImageY}px`;
+		this.element.style.backgroundRepeat = "no-repeat";
 
-    if (this.deltaX < 0) {
-      x = minX - this.deltaX;
-    } else {
-      x = this.configuration.backgroundLeft - this.deltaX;
-    }
+		this.applyPosition(this.positions.initial, false);
+	}
 
-    if (this.deltaY < 0) {
-      y = minY - this.deltaY;
-    } else {
-      y = this.configuration.backgroundTop - this.deltaY;
-    }
+	applyPosition(pos, animated, isEntering = false) {
+		if (animated) {
+			const delay = isEntering ? this.delay : 0;
+			this.element.style.transition = `transform ${this.duration}s ${this.easing} ${delay}s, background-position ${this.duration}s ${this.easing} ${delay}s`;
+		} else {
+			this.element.style.transition = "none";
+		}
+		this.element.style.transform = `translate3d(${pos.x}px, ${pos.y}px, 0)`;
+		this.element.style.backgroundPosition = `${pos.bgX}px ${pos.bgY}px`;
+	}
 
-    this.configuration.backgroundPosition = x + 'px ' + y + 'px';
-    this.element.style.backgroundSize = maxImageX + 'px ' + maxImageY + 'px';
-    this.element.style.backgroundImage = 'url(' + this.imageSrc + ')';
-  }
+	animateIn() {
+		this.applyPosition(this.positions.hover, true, true);
+	}
+
+	animateOut() {
+		this.applyPosition(this.positions.initial, true, false);
+	}
+
+	destroy() {
+		if (this.element?.parentNode) {
+			this.element.parentNode.removeChild(this.element);
+		}
+	}
 }
